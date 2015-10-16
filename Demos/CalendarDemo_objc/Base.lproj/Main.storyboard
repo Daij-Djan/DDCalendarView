@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Data Source-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjO-IT-6BA" customClass="DDCalendarView">
+                                <rect key="frame" x="20" y="49" width="560" height="526"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="oZT-Ne-9q6"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ZU4-fm-bFD"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The selected date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAo-K8-2ME">
+                                <rect key="frame" x="20" y="20.5" width="560" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="leading" secondItem="vAo-K8-2ME" secondAttribute="leading" id="1n8-gG-UbO"/>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="top" secondItem="vAo-K8-2ME" secondAttribute="bottom" constant="8" symbolic="YES" id="ACl-wf-o2Q"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fjO-IT-6BA" secondAttribute="bottom" constant="25" id="Y8I-2s-0eK"/>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="trailing" secondItem="vAo-K8-2ME" secondAttribute="trailing" id="h9d-yM-Qpv"/>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="49" id="hVN-QP-T8Q"/>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jBQ-Vh-d0w"/>
+                            <constraint firstItem="fjO-IT-6BA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="mfw-zJ-YV3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="fjO-IT-6BA" id="7XA-E9-Iro"/>
+                        <outlet property="dayLabel" destination="vAo-K8-2ME" id="OrA-fL-NU1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="296" y="387"/>
+        </scene>
+    </scenes>
+</document>
