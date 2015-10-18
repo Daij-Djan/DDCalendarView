@@ -25,44 +25,49 @@
 
 - (NSArray *)eventsForDay:(NSInteger)dayMod {
     DDCalendarEvent *event2 = [DDCalendarEvent new];
-    [event2 setTitle: @"Demo Event B"];
+    [event2 setTitle: @"Demo Event 3"];
     [event2 setDateBegin:[NSDate dateWithHour:3 min:15 inDays:dayMod]];
     [event2 setDateEnd:[NSDate dateWithHour:4 min:0 inDays:dayMod]];
     [event2 setUserInfo:@{@"color":[UIColor yellowColor]}];
     
     DDCalendarEvent *event3 = [DDCalendarEvent new];
-    [event3 setTitle: @"Demo Event C"];
+    [event3 setTitle: @"Demo Event 1"];
     [event3 setDateBegin:[NSDate dateWithHour:1 min:00 inDays:dayMod]];
     [event3 setDateEnd:[NSDate dateWithHour:2 min:10 inDays:dayMod]];
     
     DDCalendarEvent *event4 = [DDCalendarEvent new];
-    [event4 setTitle: @"Demo Event D"];
+    [event4 setTitle: @"Demo Event 5"];
     [event4 setDateBegin:[NSDate dateWithHour:5 min:39 inDays:dayMod]];
     [event4 setDateEnd:[NSDate dateWithHour:6 min:13 inDays:dayMod]];
     [event4 setUserInfo:@{@"color":[UIColor yellowColor]}];
     
+    DDCalendarEvent *event1 = [DDCalendarEvent new];
+    [event1 setTitle: @"Demo Event 7"];
+    [event1 setDateBegin:[NSDate dateWithHour:7 min:00 inDays:dayMod]];
+    [event1 setDateEnd:[NSDate dateWithHour:12 min:13 inDays:dayMod]];
+
     DDCalendarEvent *event5 = [DDCalendarEvent new];
-    [event5 setTitle: @"Demo Event E"];
-    [event5 setDateBegin:[NSDate dateWithHour:21 min:00 inDays:dayMod]];
-    [event5 setDateEnd:[NSDate dateWithHour:22 min:13 inDays:dayMod]];
+    [event5 setTitle: @"Demo Event 13"];
+    [event5 setDateBegin:[NSDate dateWithHour:13 min:00 inDays:dayMod]];
+    [event5 setDateEnd:[NSDate dateWithHour:14 min:13 inDays:dayMod]];
     
     DDCalendarEvent *event7 = [DDCalendarEvent new];
-    [event7 setTitle: @"Demo Event G"];
-    [event7 setDateBegin:[NSDate dateWithHour:10 min:30 inDays:dayMod]];
-    [event7 setDateEnd:[NSDate dateWithHour:11 min:30 inDays:dayMod]];
+    [event7 setTitle: @"Demo Event 15"];
+    [event7 setDateBegin:[NSDate dateWithHour:15 min:30 inDays:dayMod]];
+    [event7 setDateEnd:[NSDate dateWithHour:16 min:30 inDays:dayMod]];
     [event7 setUserInfo:@{@"color":[UIColor greenColor]}];
     
     DDCalendarEvent *event8 = [DDCalendarEvent new];
-    [event8 setTitle: @"Demo Event H"];
-    [event8 setDateBegin:[NSDate dateWithHour:11 min:00 inDays:dayMod]];
-    [event8 setDateEnd:[NSDate dateWithHour:14 min:30 inDays:dayMod]];
+    [event8 setTitle: @"Demo Event 17"];
+    [event8 setDateBegin:[NSDate dateWithHour:17 min:40 inDays:dayMod]];
+    [event8 setDateEnd:[NSDate dateWithHour:21 min:30 inDays:dayMod]];
     
     DDCalendarEvent *event9 = [DDCalendarEvent new];
-    [event9 setTitle: @"Demo Event I"];
-    [event9 setDateBegin:[NSDate dateWithHour:9 min:00 inDays:dayMod]];
-    [event9 setDateEnd:[NSDate dateWithHour:10 min:30 inDays:dayMod]];
+    [event9 setTitle: @"Demo Event 22"];
+    [event9 setDateBegin:[NSDate dateWithHour:22 min:00 inDays:dayMod]];
+    [event9 setDateEnd:[NSDate dateWithHour:23 min:30 inDays:dayMod]];
     
-    return @[event2, event3, event4, event5, event7, event8, event9];
+    return @[event1, event2, event3, event4, event5, event7, event8, event9];
 }
 
 #pragma mark DDCalendarViewDelegate
