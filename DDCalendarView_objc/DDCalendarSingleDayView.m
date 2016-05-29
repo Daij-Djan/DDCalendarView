@@ -8,15 +8,16 @@
 
 #import "DDCalendarSingleDayView.h"
 #import "DDCalendarView.h"
-#import "FFViewWithHourLines.h"
+#import "DDCalendarHourLinesView.h"
 #import "DDCalendarEvent.h"
 #import "DDCalendarEventView.h"
+#import "DDCalendarHeaderView.h"
 #import "NSDate+DDCalendar.h"
 #import "DDCalendarViewConstants.h"
 #import "OBDragDrop.h"
 
 @interface DDCalendarSingleDayView () <OBOvumSource, OBDropZone>
-@property(nonatomic,weak) FFViewWithHourLines *bg;
+@property(nonatomic,weak) DDCalendarHourLinesView *bg;
 @property(nonatomic,weak) UIView *container;
 @property(nonatomic,strong) NSArray *eventViews;
 @property(nonatomic,weak) DDCalendarEventView *activeEventView;
@@ -33,14 +34,14 @@
     self = [super initWithFrame:frame];
     if(self) {
         //add our hours view that draws the background
-        FFViewWithHourLines *hourLines = [[FFViewWithHourLines alloc] initWithFrame:self.bounds];
-        [hourLines setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+        DDCalendarHourLinesView *hourLines = [[DDCalendarHourLinesView alloc] initWithFrame:self.bounds];
+        [hourLines setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [hourLines sizeToFit];
         [self addSubview:hourLines];
         self.bg = hourLines;
         
         //add a container for the events
-        CGRect f = CGRectInset(hourLines.frame, 15, 15);
+        CGRect f = CGRectInset(hourLines.frame, 5, 5);
         f.origin.x += TIME_LABEL_WIDTH;
         f.size.width -= TIME_LABEL_WIDTH;
         UIView *container = [[UIView alloc] initWithFrame:f];
@@ -48,8 +49,8 @@
         [self.bg addSubview:container];
         self.container = container;
         
-        [self setShowsTomorrow:NO];
-//        [self setDate:[NSDate date]];
+        _showsTimeLabels = YES;
+        [self setShowsDayHeader:YES];
         
         self.dropZoneHandler = self;
     }
@@ -116,25 +117,45 @@
     //check if gotta scale to fit on screen
     if(maxX > self.container.frame.size.width) {
         CGFloat factor = self.container.frame.size.width/maxX;
-//        if(self.eventMinimumWidthFactor > factor) {
-//            factor = MIN(self.eventMinimumWidthFactor, 1);
-//        }
-        
         [self compressAllEventViewsByFactor:factor];
-        
-//        maxX *= factor;
     }
-
-    //update content size with maxX
-//    CGSize s = self.bg.frame.size;
-//    s.width = 15 + TIME_TIME_LABEL_WIDTH + maxX + 15;
-//    
-//    [self setContentSize:s];
 }
 
 - (void)setDate:(NSDate * _Nonnull)date {
     _date = date;
     [self setEvents:self.events];
+}
+
+- (void)setShowsDayHeader:(BOOL)showsDayHeader {
+    _showsDayHeader = showsDayHeader;
+    
+    CGRect f = self.bg.frame;
+
+    DDCalendarHeaderView *label = (DDCalendarHeaderView*)[self viewWithTag:HEADER_LABEL_TAG];
+    if(_showsDayHeader) {
+        CGRect r = self.bounds;
+        r.size.height = HEADER_LABEL_HEIGHT;
+
+        if(!label) {
+            label = [[DDCalendarHeaderView alloc] initWithFrame:r calendar:self];
+            label.tag = HEADER_LABEL_TAG;
+            
+            [self addSubview:label];
+        }
+        else {
+            label.calendar = self;
+            label.frame = r;
+        }
+        
+        f.origin.y = HEADER_LABEL_HEIGHT;
+    }
+    else {
+        [label removeFromSuperview];
+        
+        f.origin.y = 0;
+    }
+
+    self.bg.frame = f;
 }
 
 - (void)setShowsTomorrow:(BOOL)showsTomorrow {
@@ -144,21 +165,22 @@
     if(!_showsTomorrow) {
         height /= 2;
     }
-    self.contentSize = CGSizeMake(self.bounds.size.width, height);        
+    
+    CGRect f = self.frame;
+    f.size = CGSizeMake(self.bounds.size.width, height);
+    self.frame = f;
 }
 
-- (void)scrollTimeToVisible:(NSDate *)date animated:(BOOL)animated {
-    NSDateComponents *comps = date.currentCalendarDateComponents;
-    NSInteger hours = comps.hour;
-    NSInteger mins = comps.minute;
+- (void)setShowsTimeLabels:(BOOL)showsTimeLabels {
+    _showsTimeLabels = showsTimeLabels;
     
-    hours = MAX(0, hours-1);
-    
-    NSDate *tempDate = [NSDate todayDateWithHour:hours min:mins];
-    CGPoint offset = [self pointForDate:tempDate];
-    CGRect rect = CGRectMake(0, offset.y, 10, 10);
-    rect.size = self.bounds.size;
-    [self scrollRectToVisible:rect animated:animated];
+    CGRect f = CGRectInset(self.bg.frame, 5, 5);
+    if(_showsTimeLabels) {
+        f.origin.x += TIME_LABEL_WIDTH;
+        f.size.width -= TIME_LABEL_WIDTH;
+    }
+    self.container.frame = f;
+    self.bg.showTimeLabels = _showsTimeLabels;
 }
 
 - (void)setShowsTimeMarker:(BOOL)showsTimeMarker {
@@ -207,7 +229,7 @@
         for (DDCalendarEventView *ev in eventViews) {
             if(CGRectIntersectsRect(frame, ev.frame)) {
                 //if it intersects, move it and retry!
-                frame.origin.x += self.container.frame.size.width+15;
+                frame.origin.x += self.container.frame.size.width+5;
                 satisified = NO;
             }
         }
@@ -241,17 +263,23 @@
     //pixels
     CGFloat yBegin = beginInHoursSinceMidnightToday * HEIGHT_CELL_HOUR;
     yBegin += compsOfBegin.minute * PIXELS_PER_MIN;
+    yBegin += HEIGHT_CELL_MIN/2;
     
-    yBegin -= 2;// ;)
+    if(self.showsDayHeader)
+        yBegin -= HEADER_LABEL_HEIGHT;
+    
+    yBegin -= 5;// ;)
     
     return CGPointMake(0, yBegin);
 }
 
 - (NSDate*)dateForPoint:(CGPoint)pt {
     CGFloat y = pt.y; //we only care about y
+    y -= HEIGHT_CELL_MIN/2;
     
-    y -= HEIGHT_CELL_MIN/2; //  ;)
-    
+    if(self.showsDayHeader)
+        y -= HEADER_LABEL_HEIGHT;
+
     //determine how many hours fit
     int beginInHoursSinceMidnightToday = floor(pt.y / HEIGHT_CELL_HOUR);
     y = y - (beginInHoursSinceMidnightToday * HEIGHT_CELL_HOUR);
@@ -271,7 +299,9 @@
     DDCalendarEventView *ev = (DDCalendarEventView*)gestureRecognizer.view;
     
     if(activeEV != ev) {
+        activeEV.active = NO;
         ev.active = YES;
+        self.activeEventView = ev;
 
         id<DDCalendarViewDelegate> delegate = self.calendar.delegate;
         
@@ -299,6 +329,7 @@
     
     if(editable) {
         //activate it
+        self.activeEventView.active = NO;
         ev.active = YES;
         self.activeEventView = ev;
     }
@@ -309,7 +340,7 @@
     assert([sourceView isKindOfClass:[DDCalendarEventView class]]);
     
     OBOvum *ovum = [[OBOvum alloc] init];
-    ovum.dataObject = ((DDCalendarEventView*)sourceView).event;
+    ovum.dataObject = @{@"event": ((DDCalendarEventView*)sourceView).event, @"calendar": ((DDCalendarEventView*)sourceView).calendar};
     ovum.isCentered = YES;
     return ovum;
 }
@@ -339,20 +370,38 @@
 }
 
 -(void) ovumDropped:(OBOvum*)ovum inView:(UIView*)view atLocation:(CGPoint)location {
+    assert(view == self);
+
+    // Handle the drop action
+    NSDictionary *dict = ovum.dataObject;
+    DDCalendarEvent *event = dict[@"event"];
+    DDCalendarSingleDayView *oldCalendar = dict[@"calendar"];
+    
     //to get the top of the event
     location.y -= CGRectGetHeight(ovum.dragView.frame)/2;
     
-    // Handle the drop action
-    DDCalendarEvent *event = ovum.dataObject;
+    //the new time
     NSTimeInterval duration = [event.dateEnd timeIntervalSinceDate:event.dateBegin];
-
     NSDate *newStartDate = [self dateForPoint:location];
     NSDate *newEndDate = [newStartDate dateByAddingTimeInterval:duration];
-    
     event.dateBegin = newStartDate;
     event.dateEnd  = newEndDate;
     
-    self.events = self.events; //refresh ourself
+    // if we moved between cals, we need to move the event between arrays
+    // else we only need to trigger ONE redraw
+    if(oldCalendar != self) {
+        NSMutableArray *newOldEvents = [oldCalendar->_events mutableCopy];
+        [newOldEvents removeObject:event];
+        
+        NSMutableArray *newNewEvents = [_events mutableCopy];
+        [newNewEvents addObject:event];
+
+        oldCalendar.events = newOldEvents;
+        self.events = newNewEvents;
+    }
+    else {
+        self.events = self.events;
+    }
     
     //commit it
     id<DDCalendarViewDelegate> del = self.calendar.delegate;

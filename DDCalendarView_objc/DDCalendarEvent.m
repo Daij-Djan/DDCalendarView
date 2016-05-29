@@ -14,4 +14,5 @@
     id userStr = self.userInfo ? self.userInfo.description : @"{no user info}";
     return [NSString stringWithFormat:@"(%@ <%@, %@-%@>, %@", NSStringFromClass(self.class), self.title, self.dateBegin, self.dateEnd, userStr];
 }
+
 @end

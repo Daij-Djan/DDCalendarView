@@ -15,7 +15,9 @@
 #pragma mark get all the date components
 
 - (NSDateComponents *)currentCalendarDateComponents {
-    return [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday | NSCalendarUnitWeekOfMonth| NSCalendarUnitHour |
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    return [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday | NSCalendarUnitWeekOfMonth| NSCalendarUnitHour |
             NSCalendarUnitMinute fromDate:self];
 }
 
@@ -39,7 +41,26 @@
     
     return [difference day] * -1;
 }
+
+- (NSDate *)dateByAddingDays:(NSInteger)daysModifier {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = self.currentCalendarDateComponents;
+    [components setDay:components.day+daysModifier];
+    
+    return [calendar dateFromComponents:components];
+}
+
 #pragma mark convenience formatter
+
+- (NSString*)stringWithShortDayName {
+    static NSDateFormatter *df;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"EEE"];
+    });
+    return [df stringFromDate:self];
+}
 
 - (NSString *)stringWithTimeOnly {
     static NSDateFormatter *df;
@@ -47,7 +68,7 @@
     dispatch_once(&onceToken, ^{
         df = [[NSDateFormatter alloc] init];
         [df setDateStyle:NSDateFormatterNoStyle];
-        [df setTimeStyle:NSDateFormatterMediumStyle];
+        [df setTimeStyle:NSDateFormatterShortStyle];
     });
     return [df stringFromDate:self];
 }
@@ -95,7 +116,7 @@
 }
 
 + (NSDate *)dateWithHour:(NSInteger)hour min:(NSInteger)min inDays:(NSInteger)daysModifier {
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [NSDate date].currentCalendarDateComponents;
     [components setDay:components.day+daysModifier];
     [components setHour:hour];
@@ -125,4 +146,5 @@
     });
     return [df dateFromString:timeString];
 }
+
 @end

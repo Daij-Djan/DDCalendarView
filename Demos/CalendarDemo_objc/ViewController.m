@@ -20,7 +20,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.calendarView scrollDateToVisible:[NSDate date] animated:animated];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.calendarView scrollDateToVisible:[NSDate date] animated:animated];
+    });
 }
 
 - (NSArray *)eventsForDay:(NSInteger)dayMod {
@@ -44,22 +46,22 @@
     DDCalendarEvent *event1 = [DDCalendarEvent new];
     [event1 setTitle: @"Demo Event 7"];
     [event1 setDateBegin:[NSDate dateWithHour:7 min:00 inDays:dayMod]];
-    [event1 setDateEnd:[NSDate dateWithHour:12 min:13 inDays:dayMod]];
+    [event1 setDateEnd:[NSDate dateWithHour:10 min:13 inDays:dayMod]];
 
     DDCalendarEvent *event5 = [DDCalendarEvent new];
     [event5 setTitle: @"Demo Event 13"];
-    [event5 setDateBegin:[NSDate dateWithHour:13 min:00 inDays:dayMod]];
+    [event5 setDateBegin:[NSDate dateWithHour:12 min:00 inDays:dayMod]];
     [event5 setDateEnd:[NSDate dateWithHour:14 min:13 inDays:dayMod]];
     
     DDCalendarEvent *event7 = [DDCalendarEvent new];
     [event7 setTitle: @"Demo Event 15"];
-    [event7 setDateBegin:[NSDate dateWithHour:15 min:30 inDays:dayMod]];
-    [event7 setDateEnd:[NSDate dateWithHour:16 min:30 inDays:dayMod]];
+    [event7 setDateBegin:[NSDate dateWithHour:17 min:30 inDays:dayMod]];
+    [event7 setDateEnd:[NSDate dateWithHour:17 min:45 inDays:dayMod]];
     [event7 setUserInfo:@{@"color":[UIColor greenColor]}];
     
     DDCalendarEvent *event8 = [DDCalendarEvent new];
     [event8 setTitle: @"Demo Event 17"];
-    [event8 setDateBegin:[NSDate dateWithHour:17 min:40 inDays:dayMod]];
+    [event8 setDateBegin:[NSDate dateWithHour:18 min:40 inDays:dayMod]];
     [event8 setDateEnd:[NSDate dateWithHour:21 min:30 inDays:dayMod]];
     
     DDCalendarEvent *event9 = [DDCalendarEvent new];
@@ -67,13 +69,22 @@
     [event9 setDateBegin:[NSDate dateWithHour:22 min:00 inDays:dayMod]];
     [event9 setDateEnd:[NSDate dateWithHour:23 min:30 inDays:dayMod]];
     
-    return @[event1, event2, event3, event4, event5, event7, event8, event9];
+    if(dayMod % 2 != 0)
+        return @[event1, event2, event3, event4, event5, event7, event8, event9];
+    else
+        return @[event2, event4, event8];
 }
 
 #pragma mark DDCalendarViewDelegate
 
 - (void)calendarView:(DDCalendarView* _Nonnull)view focussedOnDay:(NSDate* _Nonnull)date {
-    self.dayLabel.text = date.stringWithDateOnly;
+    if(view.numberOfDays > 1) {
+        NSDate *toDate = [date dateByAddingTimeInterval:(view.numberOfDays-1) * (60*60*24)];
+        self.dayLabel.text = [NSString stringWithFormat:@"%@ - %@", date.stringWithDateOnly, toDate.stringWithDateOnly];
+    }
+    else {
+        self.dayLabel.text = date.stringWithDateOnly;
+    }
 }
 
 - (void)calendarView:(DDCalendarView* _Nonnull)view didSelectEvent:(DDCalendarEvent* _Nonnull)event {

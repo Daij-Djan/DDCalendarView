@@ -17,12 +17,14 @@
 
 //days between
 - (NSInteger)daysFromDate:(NSDate*)toDateTime;
+- (NSDate *)dateByAddingDays:(NSInteger)daysModifier;
 
 //comparison helpers
 - (BOOL)isEqualDay:(NSDate*)date;
 - (BOOL)isEqualTime:(NSDate*)date;
 
 //convenience formatter
+- (NSString*)stringWithShortDayName;
 - (NSString *)stringWithDateOnly;
 - (NSString *)stringWithTimeOnly;
 

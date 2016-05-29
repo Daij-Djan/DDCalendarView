@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 import EventKitUI
 
-class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDataSource {
+class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDataSource, EKEventViewDelegate {
 
     @IBOutlet var dayLabel: UILabel!;
     @IBOutlet var calendarView: DDCalendarView!;
@@ -18,10 +18,10 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
     var dict = Dictionary<Int, [DDCalendarEvent]>()
     var mgr = EventManager()
     
-    override func viewDidAppear(animated: Bool) {
-        self.calendarView.scrollDateToVisible(NSDate(), animated: animated)
-        self.calendarView.showsTimeMarker = true
+    override func viewDidLoad() {
+        self.calendarView.scrollDateToVisible(NSDate(), animated: false)
     }
+    
     // MARK: delegate
     
     func calendarView(view: DDCalendarView, focussedOnDay date: NSDate) {
@@ -40,10 +40,13 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
     
     func calendarView(view: DDCalendarView, didSelectEvent event: DDCalendarEvent) {
         let ekEvent = event.userInfo["event"] as! EKEvent
-
+        
         let vc = EKEventViewController()
+        vc.delegate = self;
         vc.event = ekEvent
-        self.presentViewController(vc, animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: vc)
+
+        self.presentViewController(nav, animated: true, completion: nil)
     }
 
     func calendarView(view: DDCalendarView, allowEditingEvent event: DDCalendarEvent) -> Bool {
@@ -62,7 +65,8 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
     // MARK: dataSource
     
     func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
-        return dict[date.daysFromDate(NSDate())]
+        let daysModifier = date.daysFromDate(NSDate())
+        return dict[daysModifier]
     }
     
     func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
@@ -96,5 +100,10 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
         }
     }
 
+    // MARK: delegate
+    
+    func eventViewController(controller: EKEventViewController, didCompleteWithAction action: EKEventViewAction) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 

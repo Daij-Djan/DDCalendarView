@@ -10,15 +10,15 @@
 
 @class DDCalendarView;
 
-@interface DDCalendarSingleDayView : UIScrollView
+@interface DDCalendarSingleDayView : UIView
 
 @property(nonatomic, strong) NSDate * _Nonnull date;
 @property(nonatomic, assign) BOOL showsTomorrow;
 @property(nonatomic, assign) BOOL showsTimeMarker;
+@property(nonatomic, assign) BOOL showsTimeLabels;
+@property(nonatomic, assign) BOOL showsDayHeader;
 
 @property(nonatomic, strong) NSArray * _Nullable events;
 @property(nonatomic, weak) DDCalendarView * _Nullable calendar;
-
-- (void)scrollTimeToVisible:(NSDate* _Nonnull)date animated:(BOOL)animated;
 
 @end

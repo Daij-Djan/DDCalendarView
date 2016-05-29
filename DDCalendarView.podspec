@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "DDCalendarView"
-  s.version          = "1.0"
-  s.summary          = "a calendar view that looks like the ical view while supporting Drag & Drop"
+  s.version          = "2.0"
+  s.summary          = "a calendar view that looks like the ical view while supporting Drag & Drop. It has a day and a week view"
   s.homepage         = "https://github.com/Daij-Djan/DDCalendarView"
   s.license          = 'Apache 2.0'
   s.author           = { "Dominik Pich" => "Dominik@pich.info" }

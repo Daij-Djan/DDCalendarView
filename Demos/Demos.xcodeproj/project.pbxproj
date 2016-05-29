@@ -7,49 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B38CE86E1BC9C86B005B2477 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38CE86D1BC9C86B005B2477 /* EventView.m */; settings = {ASSET_TAGS = (); }; };
+		B31CB2961CFB3F3E0084E50C /* DDCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B31CB2941CFB3F3E0084E50C /* DDCalendarHeaderView.m */; };
+		B31CB2991CFB429F0084E50C /* DDCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B31CB2981CFB429F0084E50C /* DDCalendarHeaderView.m */; };
+		B3696FF01CF996CE00DC048A /* DDCalendarDaysScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3696FEF1CF996CE00DC048A /* DDCalendarDaysScrollView.m */; };
+		B369706A1CF9B3C600DC048A /* DDCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B369704C1CF9B3C600DC048A /* DDCalendarEvent.m */; };
+		B369706B1CF9B3C600DC048A /* DDCalendarEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B369704E1CF9B3C600DC048A /* DDCalendarEventView.m */; };
+		B369706C1CF9B3C600DC048A /* DDCalendarSingleDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970501CF9B3C600DC048A /* DDCalendarSingleDayView.m */; };
+		B369706D1CF9B3C600DC048A /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970521CF9B3C600DC048A /* DDCalendarView.m */; };
+		B369706E1CF9B3C600DC048A /* DDCalendarDaysScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970551CF9B3C600DC048A /* DDCalendarDaysScrollView.m */; };
+		B36970721CF9B3C600DC048A /* NSDate+DDCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B369705E1CF9B3C600DC048A /* NSDate+DDCalendar.m */; };
+		B36970731CF9B3C600DC048A /* OBDragDropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970621CF9B3C600DC048A /* OBDragDropManager.m */; };
+		B36970741CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970651CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.m */; };
+		B36970751CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970671CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.m */; };
+		B36970761CF9B3C600DC048A /* UIView+OBDropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = B36970691CF9B3C600DC048A /* UIView+OBDropZone.m */; };
+		B38CE86E1BC9C86B005B2477 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38CE86D1BC9C86B005B2477 /* EventView.m */; };
+		B38D78271CFAEC25001A3943 /* DDCalendarHourLinesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38D78261CFAEC25001A3943 /* DDCalendarHourLinesView.m */; };
+		B38D782A1CFAECAF001A3943 /* DDCalendarHourLinesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B38D78291CFAECAF001A3943 /* DDCalendarHourLinesView.m */; };
 		B39C34991BCCDD3900E32804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C34981BCCDD3900E32804 /* AppDelegate.swift */; };
 		B39C349B1BCCDD3900E32804 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C349A1BCCDD3900E32804 /* ViewController.swift */; };
 		B39C349E1BCCDD3900E32804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39C349C1BCCDD3900E32804 /* Main.storyboard */; };
 		B39C34A01BCCDD3900E32804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39C349F1BCCDD3900E32804 /* Assets.xcassets */; };
 		B39C34A31BCCDD3900E32804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39C34A11BCCDD3900E32804 /* LaunchScreen.storyboard */; };
-		B39C35271BCCDDDA00E32804 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C35261BCCDDDA00E32804 /* EventManager.swift */; settings = {ASSET_TAGS = (); }; };
-		B39C35291BCCDE0400E32804 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C35281BCCDE0400E32804 /* EventView.swift */; settings = {ASSET_TAGS = (); }; };
-		B39C35481BCCDE3300E32804 /* DDCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C352C1BCCDE3300E32804 /* DDCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
-		B39C35491BCCDE3300E32804 /* DDCalendarEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C352E1BCCDE3300E32804 /* DDCalendarEventView.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354A1BCCDE3300E32804 /* DDCalendarSingleDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35301BCCDE3300E32804 /* DDCalendarSingleDayView.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354B1BCCDE3300E32804 /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35321BCCDE3300E32804 /* DDCalendarView.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354C1BCCDE3300E32804 /* FFHourAndMinLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35361BCCDE3300E32804 /* FFHourAndMinLabel.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354D1BCCDE3300E32804 /* FFViewWithHourLines.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35381BCCDE3300E32804 /* FFViewWithHourLines.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354E1BCCDE3300E32804 /* UILabel+FFCustomMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C353A1BCCDE3300E32804 /* UILabel+FFCustomMethods.m */; settings = {ASSET_TAGS = (); }; };
-		B39C354F1BCCDE3300E32804 /* NSDate+DDCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C353C1BCCDE3300E32804 /* NSDate+DDCalendar.m */; settings = {ASSET_TAGS = (); }; };
-		B39C35501BCCDE3300E32804 /* OBDragDropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35401BCCDE3300E32804 /* OBDragDropManager.m */; settings = {ASSET_TAGS = (); }; };
-		B39C35511BCCDE3300E32804 /* OBLongPressDragDropGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35431BCCDE3300E32804 /* OBLongPressDragDropGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
-		B39C35521BCCDE3300E32804 /* UIGestureRecognizer+OBDragDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35451BCCDE3300E32804 /* UIGestureRecognizer+OBDragDrop.m */; settings = {ASSET_TAGS = (); }; };
-		B39C35531BCCDE3300E32804 /* UIView+OBDropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35471BCCDE3300E32804 /* UIView+OBDropZone.m */; settings = {ASSET_TAGS = (); }; };
+		B39C35271BCCDDDA00E32804 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C35261BCCDDDA00E32804 /* EventManager.swift */; };
+		B39C35291BCCDE0400E32804 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C35281BCCDE0400E32804 /* EventView.swift */; };
+		B39C35481BCCDE3300E32804 /* DDCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C352C1BCCDE3300E32804 /* DDCalendarEvent.m */; };
+		B39C35491BCCDE3300E32804 /* DDCalendarEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C352E1BCCDE3300E32804 /* DDCalendarEventView.m */; };
+		B39C354A1BCCDE3300E32804 /* DDCalendarSingleDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35301BCCDE3300E32804 /* DDCalendarSingleDayView.m */; };
+		B39C354B1BCCDE3300E32804 /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35321BCCDE3300E32804 /* DDCalendarView.m */; };
+		B39C354F1BCCDE3300E32804 /* NSDate+DDCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C353C1BCCDE3300E32804 /* NSDate+DDCalendar.m */; };
+		B39C35501BCCDE3300E32804 /* OBDragDropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35401BCCDE3300E32804 /* OBDragDropManager.m */; };
+		B39C35511BCCDE3300E32804 /* OBLongPressDragDropGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35431BCCDE3300E32804 /* OBLongPressDragDropGestureRecognizer.m */; };
+		B39C35521BCCDE3300E32804 /* UIGestureRecognizer+OBDragDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35451BCCDE3300E32804 /* UIGestureRecognizer+OBDragDrop.m */; };
+		B39C35531BCCDE3300E32804 /* UIView+OBDropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C35471BCCDE3300E32804 /* UIView+OBDropZone.m */; };
 		B3C15D1A1BC3BDFE00880A49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C15D191BC3BDFE00880A49 /* main.m */; };
 		B3C15D1D1BC3BDFE00880A49 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C15D1C1BC3BDFE00880A49 /* AppDelegate.m */; };
 		B3C15D201BC3BDFE00880A49 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C15D1F1BC3BDFE00880A49 /* ViewController.m */; };
 		B3C15D231BC3BDFE00880A49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C15D211BC3BDFE00880A49 /* Main.storyboard */; };
 		B3C15D251BC3BDFE00880A49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3C15D241BC3BDFE00880A49 /* Assets.xcassets */; };
 		B3C15D281BC3BDFE00880A49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C15D261BC3BDFE00880A49 /* LaunchScreen.storyboard */; };
-		B3FB456C1BCCDFEF00B0E046 /* DDCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45501BCCDFEF00B0E046 /* DDCalendarEvent.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB456D1BCCDFEF00B0E046 /* DDCalendarEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45521BCCDFEF00B0E046 /* DDCalendarEventView.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB456E1BCCDFEF00B0E046 /* DDCalendarSingleDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45541BCCDFEF00B0E046 /* DDCalendarSingleDayView.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB456F1BCCDFEF00B0E046 /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45561BCCDFEF00B0E046 /* DDCalendarView.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45701BCCDFEF00B0E046 /* FFHourAndMinLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB455A1BCCDFEF00B0E046 /* FFHourAndMinLabel.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45711BCCDFEF00B0E046 /* FFViewWithHourLines.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB455C1BCCDFEF00B0E046 /* FFViewWithHourLines.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45721BCCDFEF00B0E046 /* UILabel+FFCustomMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB455E1BCCDFEF00B0E046 /* UILabel+FFCustomMethods.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45731BCCDFEF00B0E046 /* NSDate+DDCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45601BCCDFEF00B0E046 /* NSDate+DDCalendar.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45741BCCDFEF00B0E046 /* OBDragDropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45641BCCDFEF00B0E046 /* OBDragDropManager.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45751BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45671BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45761BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB45691BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.m */; settings = {ASSET_TAGS = (); }; };
-		B3FB45771BCCDFEF00B0E046 /* UIView+OBDropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FB456B1BCCDFEF00B0E046 /* UIView+OBDropZone.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B31CB2931CFB3F3E0084E50C /* DDCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarHeaderView.h; sourceTree = "<group>"; };
+		B31CB2941CFB3F3E0084E50C /* DDCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarHeaderView.m; sourceTree = "<group>"; };
+		B31CB2971CFB429F0084E50C /* DDCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarHeaderView.h; sourceTree = "<group>"; };
+		B31CB2981CFB429F0084E50C /* DDCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarHeaderView.m; sourceTree = "<group>"; };
+		B3696FEE1CF996CE00DC048A /* DDCalendarDaysScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarDaysScrollView.h; sourceTree = "<group>"; };
+		B3696FEF1CF996CE00DC048A /* DDCalendarDaysScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarDaysScrollView.m; sourceTree = "<group>"; };
+		B369704B1CF9B3C600DC048A /* DDCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarEvent.h; sourceTree = "<group>"; };
+		B369704C1CF9B3C600DC048A /* DDCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarEvent.m; sourceTree = "<group>"; };
+		B369704D1CF9B3C600DC048A /* DDCalendarEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarEventView.h; sourceTree = "<group>"; };
+		B369704E1CF9B3C600DC048A /* DDCalendarEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarEventView.m; sourceTree = "<group>"; };
+		B369704F1CF9B3C600DC048A /* DDCalendarSingleDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarSingleDayView.h; sourceTree = "<group>"; };
+		B36970501CF9B3C600DC048A /* DDCalendarSingleDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarSingleDayView.m; sourceTree = "<group>"; };
+		B36970511CF9B3C600DC048A /* DDCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarView.h; sourceTree = "<group>"; };
+		B36970521CF9B3C600DC048A /* DDCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarView.m; sourceTree = "<group>"; };
+		B36970531CF9B3C600DC048A /* DDCalendarViewConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarViewConstants.h; sourceTree = "<group>"; };
+		B36970541CF9B3C600DC048A /* DDCalendarDaysScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarDaysScrollView.h; sourceTree = "<group>"; };
+		B36970551CF9B3C600DC048A /* DDCalendarDaysScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarDaysScrollView.m; sourceTree = "<group>"; };
+		B369705D1CF9B3C600DC048A /* NSDate+DDCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DDCalendar.h"; sourceTree = "<group>"; };
+		B369705E1CF9B3C600DC048A /* NSDate+DDCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DDCalendar.m"; sourceTree = "<group>"; };
+		B36970601CF9B3C600DC048A /* OBDragDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDrop.h; sourceTree = "<group>"; };
+		B36970611CF9B3C600DC048A /* OBDragDropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDropManager.h; sourceTree = "<group>"; };
+		B36970621CF9B3C600DC048A /* OBDragDropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDragDropManager.m; sourceTree = "<group>"; };
+		B36970631CF9B3C600DC048A /* OBDragDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDropProtocol.h; sourceTree = "<group>"; };
+		B36970641CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBLongPressDragDropGestureRecognizer.h; sourceTree = "<group>"; };
+		B36970651CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBLongPressDragDropGestureRecognizer.m; sourceTree = "<group>"; };
+		B36970661CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+OBDragDrop.h"; sourceTree = "<group>"; };
+		B36970671CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+OBDragDrop.m"; sourceTree = "<group>"; };
+		B36970681CF9B3C600DC048A /* UIView+OBDropZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+OBDropZone.h"; sourceTree = "<group>"; };
+		B36970691CF9B3C600DC048A /* UIView+OBDropZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+OBDropZone.m"; sourceTree = "<group>"; };
 		B38CE86C1BC9C86B005B2477 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
 		B38CE86D1BC9C86B005B2477 /* EventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
+		B38D78251CFAEC25001A3943 /* DDCalendarHourLinesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarHourLinesView.h; sourceTree = "<group>"; };
+		B38D78261CFAEC25001A3943 /* DDCalendarHourLinesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarHourLinesView.m; sourceTree = "<group>"; };
+		B38D78281CFAECAF001A3943 /* DDCalendarHourLinesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarHourLinesView.h; sourceTree = "<group>"; };
+		B38D78291CFAECAF001A3943 /* DDCalendarHourLinesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarHourLinesView.m; sourceTree = "<group>"; };
 		B39C34961BCCDD3900E32804 /* EventKitDemo_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventKitDemo_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39C34981BCCDD3900E32804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B39C349A1BCCDD3900E32804 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,12 +101,6 @@
 		B39C35311BCCDE3300E32804 /* DDCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarView.h; sourceTree = "<group>"; };
 		B39C35321BCCDE3300E32804 /* DDCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarView.m; sourceTree = "<group>"; };
 		B39C35331BCCDE3300E32804 /* DDCalendarViewConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarViewConstants.h; sourceTree = "<group>"; };
-		B39C35351BCCDE3300E32804 /* FFHourAndMinLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFHourAndMinLabel.h; sourceTree = "<group>"; };
-		B39C35361BCCDE3300E32804 /* FFHourAndMinLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFHourAndMinLabel.m; sourceTree = "<group>"; };
-		B39C35371BCCDE3300E32804 /* FFViewWithHourLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFViewWithHourLines.h; sourceTree = "<group>"; };
-		B39C35381BCCDE3300E32804 /* FFViewWithHourLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFViewWithHourLines.m; sourceTree = "<group>"; };
-		B39C35391BCCDE3300E32804 /* UILabel+FFCustomMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FFCustomMethods.h"; sourceTree = "<group>"; };
-		B39C353A1BCCDE3300E32804 /* UILabel+FFCustomMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FFCustomMethods.m"; sourceTree = "<group>"; };
 		B39C353B1BCCDE3300E32804 /* NSDate+DDCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DDCalendar.h"; sourceTree = "<group>"; };
 		B39C353C1BCCDE3300E32804 /* NSDate+DDCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DDCalendar.m"; sourceTree = "<group>"; };
 		B39C353E1BCCDE3300E32804 /* OBDragDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDrop.h; sourceTree = "<group>"; };
@@ -96,33 +123,6 @@
 		B3C15D241BC3BDFE00880A49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3C15D271BC3BDFE00880A49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3C15D291BC3BDFE00880A49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3FB454F1BCCDFEF00B0E046 /* DDCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarEvent.h; sourceTree = "<group>"; };
-		B3FB45501BCCDFEF00B0E046 /* DDCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarEvent.m; sourceTree = "<group>"; };
-		B3FB45511BCCDFEF00B0E046 /* DDCalendarEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarEventView.h; sourceTree = "<group>"; };
-		B3FB45521BCCDFEF00B0E046 /* DDCalendarEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarEventView.m; sourceTree = "<group>"; };
-		B3FB45531BCCDFEF00B0E046 /* DDCalendarSingleDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarSingleDayView.h; sourceTree = "<group>"; };
-		B3FB45541BCCDFEF00B0E046 /* DDCalendarSingleDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarSingleDayView.m; sourceTree = "<group>"; };
-		B3FB45551BCCDFEF00B0E046 /* DDCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarView.h; sourceTree = "<group>"; };
-		B3FB45561BCCDFEF00B0E046 /* DDCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarView.m; sourceTree = "<group>"; };
-		B3FB45571BCCDFEF00B0E046 /* DDCalendarViewConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarViewConstants.h; sourceTree = "<group>"; };
-		B3FB45591BCCDFEF00B0E046 /* FFHourAndMinLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFHourAndMinLabel.h; sourceTree = "<group>"; };
-		B3FB455A1BCCDFEF00B0E046 /* FFHourAndMinLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFHourAndMinLabel.m; sourceTree = "<group>"; };
-		B3FB455B1BCCDFEF00B0E046 /* FFViewWithHourLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFViewWithHourLines.h; sourceTree = "<group>"; };
-		B3FB455C1BCCDFEF00B0E046 /* FFViewWithHourLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFViewWithHourLines.m; sourceTree = "<group>"; };
-		B3FB455D1BCCDFEF00B0E046 /* UILabel+FFCustomMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FFCustomMethods.h"; sourceTree = "<group>"; };
-		B3FB455E1BCCDFEF00B0E046 /* UILabel+FFCustomMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FFCustomMethods.m"; sourceTree = "<group>"; };
-		B3FB455F1BCCDFEF00B0E046 /* NSDate+DDCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DDCalendar.h"; sourceTree = "<group>"; };
-		B3FB45601BCCDFEF00B0E046 /* NSDate+DDCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DDCalendar.m"; sourceTree = "<group>"; };
-		B3FB45621BCCDFEF00B0E046 /* OBDragDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDrop.h; sourceTree = "<group>"; };
-		B3FB45631BCCDFEF00B0E046 /* OBDragDropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDropManager.h; sourceTree = "<group>"; };
-		B3FB45641BCCDFEF00B0E046 /* OBDragDropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDragDropManager.m; sourceTree = "<group>"; };
-		B3FB45651BCCDFEF00B0E046 /* OBDragDropProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDragDropProtocol.h; sourceTree = "<group>"; };
-		B3FB45661BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBLongPressDragDropGestureRecognizer.h; sourceTree = "<group>"; };
-		B3FB45671BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBLongPressDragDropGestureRecognizer.m; sourceTree = "<group>"; };
-		B3FB45681BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+OBDragDrop.h"; sourceTree = "<group>"; };
-		B3FB45691BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+OBDragDrop.m"; sourceTree = "<group>"; };
-		B3FB456A1BCCDFEF00B0E046 /* UIView+OBDropZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+OBDropZone.h"; sourceTree = "<group>"; };
-		B3FB456B1BCCDFEF00B0E046 /* UIView+OBDropZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+OBDropZone.m"; sourceTree = "<group>"; };
 		B3FB45781BCCE00D00B0E046 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,10 +144,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B369704A1CF9B3C600DC048A /* DDCalendarView_objc */ = {
+			isa = PBXGroup;
+			children = (
+				B369704B1CF9B3C600DC048A /* DDCalendarEvent.h */,
+				B369704C1CF9B3C600DC048A /* DDCalendarEvent.m */,
+				B369704D1CF9B3C600DC048A /* DDCalendarEventView.h */,
+				B369704E1CF9B3C600DC048A /* DDCalendarEventView.m */,
+				B31CB2931CFB3F3E0084E50C /* DDCalendarHeaderView.h */,
+				B31CB2941CFB3F3E0084E50C /* DDCalendarHeaderView.m */,
+				B38D78251CFAEC25001A3943 /* DDCalendarHourLinesView.h */,
+				B38D78261CFAEC25001A3943 /* DDCalendarHourLinesView.m */,
+				B369704F1CF9B3C600DC048A /* DDCalendarSingleDayView.h */,
+				B36970501CF9B3C600DC048A /* DDCalendarSingleDayView.m */,
+				B36970541CF9B3C600DC048A /* DDCalendarDaysScrollView.h */,
+				B36970551CF9B3C600DC048A /* DDCalendarDaysScrollView.m */,
+				B36970511CF9B3C600DC048A /* DDCalendarView.h */,
+				B36970521CF9B3C600DC048A /* DDCalendarView.m */,
+				B36970531CF9B3C600DC048A /* DDCalendarViewConstants.h */,
+				B369705D1CF9B3C600DC048A /* NSDate+DDCalendar.h */,
+				B369705E1CF9B3C600DC048A /* NSDate+DDCalendar.m */,
+				B369705F1CF9B3C600DC048A /* OBDragDrop */,
+			);
+			name = DDCalendarView_objc;
+			path = ../../DDCalendarView_objc;
+			sourceTree = "<group>";
+		};
+		B369705F1CF9B3C600DC048A /* OBDragDrop */ = {
+			isa = PBXGroup;
+			children = (
+				B36970601CF9B3C600DC048A /* OBDragDrop.h */,
+				B36970611CF9B3C600DC048A /* OBDragDropManager.h */,
+				B36970621CF9B3C600DC048A /* OBDragDropManager.m */,
+				B36970631CF9B3C600DC048A /* OBDragDropProtocol.h */,
+				B36970641CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.h */,
+				B36970651CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.m */,
+				B36970661CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.h */,
+				B36970671CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.m */,
+				B36970681CF9B3C600DC048A /* UIView+OBDropZone.h */,
+				B36970691CF9B3C600DC048A /* UIView+OBDropZone.m */,
+			);
+			path = OBDragDrop;
+			sourceTree = "<group>";
+		};
 		B39C34971BCCDD3900E32804 /* EventKitDemo_swift */ = {
 			isa = PBXGroup;
 			children = (
-				B3FB454E1BCCDFEF00B0E046 /* DDCalendarView_objc */,
+				B369704A1CF9B3C600DC048A /* DDCalendarView_objc */,
 				B39C34981BCCDD3900E32804 /* AppDelegate.swift */,
 				B39C349A1BCCDD3900E32804 /* ViewController.swift */,
 				B39C35281BCCDE0400E32804 /* EventView.swift */,
@@ -168,31 +211,23 @@
 				B39C352C1BCCDE3300E32804 /* DDCalendarEvent.m */,
 				B39C352D1BCCDE3300E32804 /* DDCalendarEventView.h */,
 				B39C352E1BCCDE3300E32804 /* DDCalendarEventView.m */,
+				B31CB2971CFB429F0084E50C /* DDCalendarHeaderView.h */,
+				B31CB2981CFB429F0084E50C /* DDCalendarHeaderView.m */,
+				B38D78281CFAECAF001A3943 /* DDCalendarHourLinesView.h */,
+				B38D78291CFAECAF001A3943 /* DDCalendarHourLinesView.m */,
 				B39C352F1BCCDE3300E32804 /* DDCalendarSingleDayView.h */,
 				B39C35301BCCDE3300E32804 /* DDCalendarSingleDayView.m */,
+				B3696FEE1CF996CE00DC048A /* DDCalendarDaysScrollView.h */,
+				B3696FEF1CF996CE00DC048A /* DDCalendarDaysScrollView.m */,
 				B39C35311BCCDE3300E32804 /* DDCalendarView.h */,
 				B39C35321BCCDE3300E32804 /* DDCalendarView.m */,
 				B39C35331BCCDE3300E32804 /* DDCalendarViewConstants.h */,
-				B39C35341BCCDE3300E32804 /* FFViewWithHourLines */,
 				B39C353B1BCCDE3300E32804 /* NSDate+DDCalendar.h */,
 				B39C353C1BCCDE3300E32804 /* NSDate+DDCalendar.m */,
 				B39C353D1BCCDE3300E32804 /* OBDragDrop */,
 			);
 			name = DDCalendarView_objc;
 			path = ../../DDCalendarView_objc;
-			sourceTree = "<group>";
-		};
-		B39C35341BCCDE3300E32804 /* FFViewWithHourLines */ = {
-			isa = PBXGroup;
-			children = (
-				B39C35351BCCDE3300E32804 /* FFHourAndMinLabel.h */,
-				B39C35361BCCDE3300E32804 /* FFHourAndMinLabel.m */,
-				B39C35371BCCDE3300E32804 /* FFViewWithHourLines.h */,
-				B39C35381BCCDE3300E32804 /* FFViewWithHourLines.m */,
-				B39C35391BCCDE3300E32804 /* UILabel+FFCustomMethods.h */,
-				B39C353A1BCCDE3300E32804 /* UILabel+FFCustomMethods.m */,
-			);
-			path = FFViewWithHourLines;
 			sourceTree = "<group>";
 		};
 		B39C353D1BCCDE3300E32804 /* OBDragDrop */ = {
@@ -255,57 +290,6 @@
 				B3C15D191BC3BDFE00880A49 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B3FB454E1BCCDFEF00B0E046 /* DDCalendarView_objc */ = {
-			isa = PBXGroup;
-			children = (
-				B3FB454F1BCCDFEF00B0E046 /* DDCalendarEvent.h */,
-				B3FB45501BCCDFEF00B0E046 /* DDCalendarEvent.m */,
-				B3FB45511BCCDFEF00B0E046 /* DDCalendarEventView.h */,
-				B3FB45521BCCDFEF00B0E046 /* DDCalendarEventView.m */,
-				B3FB45531BCCDFEF00B0E046 /* DDCalendarSingleDayView.h */,
-				B3FB45541BCCDFEF00B0E046 /* DDCalendarSingleDayView.m */,
-				B3FB45551BCCDFEF00B0E046 /* DDCalendarView.h */,
-				B3FB45561BCCDFEF00B0E046 /* DDCalendarView.m */,
-				B3FB45571BCCDFEF00B0E046 /* DDCalendarViewConstants.h */,
-				B3FB45581BCCDFEF00B0E046 /* FFViewWithHourLines */,
-				B3FB455F1BCCDFEF00B0E046 /* NSDate+DDCalendar.h */,
-				B3FB45601BCCDFEF00B0E046 /* NSDate+DDCalendar.m */,
-				B3FB45611BCCDFEF00B0E046 /* OBDragDrop */,
-			);
-			name = DDCalendarView_objc;
-			path = ../../DDCalendarView_objc;
-			sourceTree = "<group>";
-		};
-		B3FB45581BCCDFEF00B0E046 /* FFViewWithHourLines */ = {
-			isa = PBXGroup;
-			children = (
-				B3FB45591BCCDFEF00B0E046 /* FFHourAndMinLabel.h */,
-				B3FB455A1BCCDFEF00B0E046 /* FFHourAndMinLabel.m */,
-				B3FB455B1BCCDFEF00B0E046 /* FFViewWithHourLines.h */,
-				B3FB455C1BCCDFEF00B0E046 /* FFViewWithHourLines.m */,
-				B3FB455D1BCCDFEF00B0E046 /* UILabel+FFCustomMethods.h */,
-				B3FB455E1BCCDFEF00B0E046 /* UILabel+FFCustomMethods.m */,
-			);
-			path = FFViewWithHourLines;
-			sourceTree = "<group>";
-		};
-		B3FB45611BCCDFEF00B0E046 /* OBDragDrop */ = {
-			isa = PBXGroup;
-			children = (
-				B3FB45621BCCDFEF00B0E046 /* OBDragDrop.h */,
-				B3FB45631BCCDFEF00B0E046 /* OBDragDropManager.h */,
-				B3FB45641BCCDFEF00B0E046 /* OBDragDropManager.m */,
-				B3FB45651BCCDFEF00B0E046 /* OBDragDropProtocol.h */,
-				B3FB45661BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.h */,
-				B3FB45671BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.m */,
-				B3FB45681BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.h */,
-				B3FB45691BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.m */,
-				B3FB456A1BCCDFEF00B0E046 /* UIView+OBDropZone.h */,
-				B3FB456B1BCCDFEF00B0E046 /* UIView+OBDropZone.m */,
-			);
-			path = OBDragDrop;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,22 +393,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3FB456F1BCCDFEF00B0E046 /* DDCalendarView.m in Sources */,
-				B3FB45721BCCDFEF00B0E046 /* UILabel+FFCustomMethods.m in Sources */,
-				B3FB45741BCCDFEF00B0E046 /* OBDragDropManager.m in Sources */,
+				B369706D1CF9B3C600DC048A /* DDCalendarView.m in Sources */,
+				B369706E1CF9B3C600DC048A /* DDCalendarDaysScrollView.m in Sources */,
 				B39C35271BCCDDDA00E32804 /* EventManager.swift in Sources */,
-				B3FB45771BCCDFEF00B0E046 /* UIView+OBDropZone.m in Sources */,
 				B39C349B1BCCDD3900E32804 /* ViewController.swift in Sources */,
-				B3FB45761BCCDFEF00B0E046 /* UIGestureRecognizer+OBDragDrop.m in Sources */,
+				B36970731CF9B3C600DC048A /* OBDragDropManager.m in Sources */,
+				B36970721CF9B3C600DC048A /* NSDate+DDCalendar.m in Sources */,
+				B36970741CF9B3C600DC048A /* OBLongPressDragDropGestureRecognizer.m in Sources */,
+				B31CB2961CFB3F3E0084E50C /* DDCalendarHeaderView.m in Sources */,
 				B39C34991BCCDD3900E32804 /* AppDelegate.swift in Sources */,
-				B3FB45711BCCDFEF00B0E046 /* FFViewWithHourLines.m in Sources */,
-				B3FB45751BCCDFEF00B0E046 /* OBLongPressDragDropGestureRecognizer.m in Sources */,
-				B3FB456C1BCCDFEF00B0E046 /* DDCalendarEvent.m in Sources */,
-				B3FB45701BCCDFEF00B0E046 /* FFHourAndMinLabel.m in Sources */,
-				B3FB456E1BCCDFEF00B0E046 /* DDCalendarSingleDayView.m in Sources */,
+				B369706A1CF9B3C600DC048A /* DDCalendarEvent.m in Sources */,
+				B38D78271CFAEC25001A3943 /* DDCalendarHourLinesView.m in Sources */,
+				B36970761CF9B3C600DC048A /* UIView+OBDropZone.m in Sources */,
+				B369706C1CF9B3C600DC048A /* DDCalendarSingleDayView.m in Sources */,
 				B39C35291BCCDE0400E32804 /* EventView.swift in Sources */,
-				B3FB45731BCCDFEF00B0E046 /* NSDate+DDCalendar.m in Sources */,
-				B3FB456D1BCCDFEF00B0E046 /* DDCalendarEventView.m in Sources */,
+				B36970751CF9B3C600DC048A /* UIGestureRecognizer+OBDragDrop.m in Sources */,
+				B369706B1CF9B3C600DC048A /* DDCalendarEventView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,20 +416,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38D782A1CFAECAF001A3943 /* DDCalendarHourLinesView.m in Sources */,
 				B39C354B1BCCDE3300E32804 /* DDCalendarView.m in Sources */,
-				B39C354E1BCCDE3300E32804 /* UILabel+FFCustomMethods.m in Sources */,
 				B39C35501BCCDE3300E32804 /* OBDragDropManager.m in Sources */,
 				B38CE86E1BC9C86B005B2477 /* EventView.m in Sources */,
 				B39C35531BCCDE3300E32804 /* UIView+OBDropZone.m in Sources */,
 				B3C15D201BC3BDFE00880A49 /* ViewController.m in Sources */,
 				B39C35521BCCDE3300E32804 /* UIGestureRecognizer+OBDragDrop.m in Sources */,
+				B31CB2991CFB429F0084E50C /* DDCalendarHeaderView.m in Sources */,
 				B3C15D1D1BC3BDFE00880A49 /* AppDelegate.m in Sources */,
-				B39C354D1BCCDE3300E32804 /* FFViewWithHourLines.m in Sources */,
 				B39C35511BCCDE3300E32804 /* OBLongPressDragDropGestureRecognizer.m in Sources */,
 				B39C35481BCCDE3300E32804 /* DDCalendarEvent.m in Sources */,
-				B39C354C1BCCDE3300E32804 /* FFHourAndMinLabel.m in Sources */,
 				B39C354A1BCCDE3300E32804 /* DDCalendarSingleDayView.m in Sources */,
 				B3C15D1A1BC3BDFE00880A49 /* main.m in Sources */,
+				B3696FF01CF996CE00DC048A /* DDCalendarDaysScrollView.m in Sources */,
 				B39C354F1BCCDE3300E32804 /* NSDate+DDCalendar.m in Sources */,
 				B39C35491BCCDE3300E32804 /* DDCalendarEventView.m in Sources */,
 			);

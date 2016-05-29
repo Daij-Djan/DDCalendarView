@@ -10,14 +10,16 @@
 #import "DDCalendarSingleDayView.h"
 #import "NSDate+DDCalendar.h"
 #import "DDCalendarEvent.h"
+#import "DDCalendarDaysScrollView.h"
+#import "DDCalendarViewConstants.h"
 
 @interface DDCalendarView () <UIScrollViewDelegate>
 @property(nonatomic, strong) IBInspectable NSString * _Nonnull dateString;
 
 @property(nonatomic, weak) UIScrollView *pagingView;
-@property(nonatomic, weak) DDCalendarSingleDayView *leftCal;
-@property(nonatomic, weak) DDCalendarSingleDayView *centerCal;
-@property(nonatomic, weak) DDCalendarSingleDayView *rightCal;
+@property(nonatomic, weak) DDCalendarDaysScrollView *leftScrollView;
+@property(nonatomic, weak) DDCalendarDaysScrollView *centerScrollView;
+@property(nonatomic, weak) DDCalendarDaysScrollView *rightScrollView;
 @end
 
 @implementation DDCalendarView {
@@ -43,56 +45,144 @@
 }
 
 - (void)setupView {
-    self.date = [NSDate date];
+    //defaults
+    self.showsDayName = YES;
     self.showsTimeMarker = YES;
+    self.showsTomorrow = NO;
+    self.numberOfDays = 1;
+    
+    self.date = [NSDate date];
+
+    UIScrollView *pagingView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    pagingView.pagingEnabled = YES;
+    pagingView.directionalLockEnabled = YES;
+    pagingView.delegate = self;
+    [pagingView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [self addSubview:pagingView];
+    self.pagingView = pagingView;
+    
+    DDCalendarDaysScrollView *leftScrollView = [[DDCalendarDaysScrollView alloc] initWithFrame:self.bounds];
+    leftScrollView.delegate = self;
+    [leftScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    
+    DDCalendarDaysScrollView *centerScrollView = [[DDCalendarDaysScrollView alloc] initWithFrame:self.bounds];
+    centerScrollView.delegate = self;
+    [centerScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+
+    DDCalendarDaysScrollView *rightScrollView = [[DDCalendarDaysScrollView alloc] initWithFrame:self.bounds];
+    rightScrollView.delegate = self;
+    [rightScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+
+    [pagingView addSubview:leftScrollView];
+    [pagingView addSubview:centerScrollView];
+    [pagingView addSubview:rightScrollView];
+    self.leftScrollView = leftScrollView;
+    self.centerScrollView = centerScrollView;
+    self.rightScrollView = rightScrollView;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    if(!self.pagingView) {
-        UIScrollView *pagingView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        pagingView.pagingEnabled = YES;
-        pagingView.directionalLockEnabled = YES;
-        pagingView.delegate = self;
-        [pagingView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-        [self addSubview:pagingView];
-        self.pagingView = pagingView;
-    }
-    
     CGRect f = self.pagingView.bounds;
     CGSize s = self.pagingView.contentSize;
     if(s.width != f.size.width * 3) {
         self.date = self.date;
     }
 }
-- (void)setShowsTomorrow:(BOOL)showsTomorrow {
-    CGPoint offset = self.leftCal.contentOffset;
 
-    _showsTomorrow = showsTomorrow;
-
-    //tell our single days
-    self.leftCal.showsTomorrow = _showsTomorrow;
-    self.centerCal.showsTomorrow = _showsTomorrow;
-    self.rightCal.showsTomorrow = _showsTomorrow;
-    
+- (void)resizeContainersAndCenterPagingView {
     //make us as big as needed
     CGSize s = self.frame.size;
     s.width *= 3;
     self.pagingView.contentSize = s;
     
-    self.pagingView.contentOffset = CGPointMake(self.leftCal.frame.size.width,0);
-    self.leftCal.contentOffset = offset;
+    //go to center
+    CGFloat left = 0;
+    for (UIView *calView in self.leftScrollView.calendars) {
+        left += calView.frame.size.width;
+    }
+    self.pagingView.contentOffset = CGPointMake(left,0);
     _selectedPageIndex = 1;
+    
+    if(!CGSizeEqualToSize([self.leftScrollView.calendars[0] frame].size, self.leftScrollView.contentSize)) {
+        CGRect f = self.bounds;
+        self.leftScrollView.frame = f;
+        self.leftScrollView.contentSize = [self.leftScrollView.calendars[0] frame].size;
+        f.origin.x += f.size.width;
+        
+        self.centerScrollView.frame = f;
+        self.centerScrollView.contentSize = [self.centerScrollView.calendars[0] frame].size;
+        f.origin.x += f.size.width;
+        
+        self.rightScrollView.frame = f;
+        self.rightScrollView.contentSize = [self.rightScrollView.calendars[0] frame].size;
+    }
+}
+
+- (void)setShowsTomorrow:(BOOL)showsTomorrow {
+    _showsTomorrow = showsTomorrow;
+    
+    if(!self.date)
+        return;
+
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+
+    [self resizeContainersAndCenterPagingView];
 }
 
 - (void)setShowsTimeMarker:(BOOL)showsTimeMarker {
     _showsTimeMarker = showsTimeMarker;
+    
+    if(!self.date)
+        return;
 
     //tell our single days
-    self.leftCal.showsTimeMarker = _showsTimeMarker;
-    self.centerCal.showsTimeMarker = _showsTimeMarker;
-    self.rightCal.showsTimeMarker = _showsTimeMarker;
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
+    }
+}
+
+- (void)setShowsDayName:(BOOL)showsDayname {
+    _showsDayName = showsDayname;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+}
+
+- (void)setNumberOfDays:(NSUInteger)numberOfDays {
+    _numberOfDays = numberOfDays;
+    
+    if(!self.date)
+        return;
+    
+    self.date = self.date;
 }
 
 - (void)setDate:(NSDate *)date {
@@ -105,60 +195,21 @@
     _date = date;
     
     if(self.pagingView) {
-        //create cals if not there yet
-        if(!self.leftCal) {
-            CGRect f = self.bounds;
-            f.origin.x = 0;
-            DDCalendarSingleDayView *leftCal = [[DDCalendarSingleDayView alloc] initWithFrame:f];
-            f.origin.x += f.size.width;
-            DDCalendarSingleDayView *centerCal = [[DDCalendarSingleDayView alloc] initWithFrame:f];
-            f.origin.x += f.size.width;
-            DDCalendarSingleDayView *rightCal = [[DDCalendarSingleDayView alloc] initWithFrame:f];
-            
-            leftCal.delegate = self;
-            centerCal.delegate = self;
-            rightCal.delegate = self;
-            leftCal.calendar = self;
-            centerCal.calendar = self;
-            rightCal.calendar = self;
-            
-            UIScrollView *pagingView = self.pagingView;
-            [pagingView addSubview:leftCal];
-            [pagingView addSubview:centerCal];
-            [pagingView addSubview:rightCal];
-            self.leftCal = leftCal;
-            self.centerCal = centerCal;
-            self.rightCal = rightCal;
-            
-        }
-        else {
-            CGRect f = self.bounds;
-            f.origin.x = 0;
-            self.leftCal.frame = f;
-            f.origin.x += f.size.width;
-            self.centerCal.frame = f;
-            f.origin.x += f.size.width;
-            self.rightCal.frame = f;
-        }
+        //create the needed amount of calendars
+        [self.leftScrollView prepareCalendars:self.numberOfDays];
+        [self.centerScrollView prepareCalendars:self.numberOfDays];
+        [self.rightScrollView prepareCalendars:self.numberOfDays];
         
-        //set dates
-        self.leftCal.date = [_date dateByAddingTimeInterval:-(60*60*24)];
-        self.centerCal.date = _date;
-        self.rightCal.date = [_date dateByAddingTimeInterval:(60*60*24)];
-        
-        //get events
-        if(_mockMode) {
-            self.leftCal.events = [self eventsForDay:-1];
-            self.centerCal.events = [self eventsForDay:0];
-            self.rightCal.events = [self eventsForDay:-1];
+        //set dates AND get data
+        NSInteger dayModifier = -_numberOfDays;
+        for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+            [self reloadCalendar:dv dayModifier:dayModifier++];
         }
-        else {
-            id<DDCalendarViewDataSource> ds = _dataSource;
-            if(ds) {
-                self.leftCal.events = [ds calendarView:self eventsForDay:self.leftCal.date];
-                self.centerCal.events = [ds calendarView:self eventsForDay:self.centerCal.date];
-                self.rightCal.events = [ds calendarView:self eventsForDay:self.rightCal.date];
-            }
+        for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+            [self reloadCalendar:dv dayModifier:dayModifier++];
+        }
+        for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+            [self reloadCalendar:dv dayModifier:dayModifier++];
         }
         
         //fix our contentOffset & size
@@ -202,11 +253,13 @@
     self.date = self.date;
 }
 
-- (void)scrollDateToVisible:(NSDate* _Nonnull)date animated:(BOOL)animated {
+- (void)scrollDateToVisible:(NSDate *)date animated:(BOOL)animated {
     if(![date isEqualDay:self.date]) {
         self.date = date;
     }
-    [self.centerCal scrollTimeToVisible:date animated:animated];
+    [self.leftScrollView scrollTimeToVisible:date animated:animated];
+    [self.centerScrollView scrollTimeToVisible:date animated:animated];
+    [self.rightScrollView scrollTimeToVisible:date animated:animated];
 }
 
 //paging view
@@ -219,10 +272,10 @@
             //if the page changed, go and refocus our view to allow for infinite scrolling
             NSDate *newDate;
             if(page == 0) {
-                newDate = [self.date dateByAddingTimeInterval:-(60*60*24)];
+                newDate = [self.date dateByAddingDays:-self.numberOfDays];
             }
             else if(page == 2) {
-                newDate = [self.date dateByAddingTimeInterval:(60*60*24)];
+                newDate = [self.date dateByAddingDays:self.numberOfDays];
             }
             
             assert(newDate);
@@ -233,11 +286,28 @@
 
 //calenders
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(scrollView == self.leftCal || scrollView == self.centerCal || scrollView == self.rightCal) {
-        CGPoint offset = scrollView.contentOffset;
-        self.leftCal.contentOffset = offset;
-        self.centerCal.contentOffset = offset;
-        self.rightCal.contentOffset = offset;
+    //sync the views
+    if(scrollView == self.leftScrollView ||
+       scrollView == self.centerScrollView ||
+       scrollView == self.rightScrollView) {
+        self.leftScrollView.contentOffset = scrollView.contentOffset;
+        self.centerScrollView.contentOffset = scrollView.contentOffset;
+        self.rightScrollView.contentOffset = scrollView.contentOffset;
+    }
+}
+
+- (void)reloadCalendar:(DDCalendarSingleDayView*)dv dayModifier:(NSInteger)dayModifier {
+    dv.date = [self.date dateByAddingDays:dayModifier];
+    dv.showsDayHeader = self.showsDayName;
+    dv.showsTomorrow = self.showsTomorrow;
+    dv.showsTimeMarker = self.showsTimeMarker;
+    dv.calendar = self;
+    
+    if(_mockMode) {
+        dv.events = [self eventsForDay:dayModifier];
+    }
+    else {
+        dv.events = [_dataSource calendarView:self eventsForDay:dv.date];
     }
 }
 
@@ -283,7 +353,10 @@
     [event9 setDateBegin:[NSDate dateWithHour:9 min:00 inDays:dayMod]];
     [event9 setDateEnd:[NSDate dateWithHour:10 min:30 inDays:dayMod]];
     
-    return @[event2, event3, event4, event5, event7, event8, event9];
+    if(dayMod % 2 != 0)
+        return @[event2, event3, event4, event5, event7, event8, event9];
+    else
+        return @[event3, event5, event7, event9];
 }
 
 @end
