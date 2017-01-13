@@ -41,11 +41,11 @@
     CGRect line = CGRectMake(padding, HEIGHT_CELL_MIN-1, rect.size.width-padding, 1);
     UIRectFill(line);
         
-        //draw text if useful
+    //draw text if useful
     CGRect label = CGRectMake(padding, 0, rect.size.width-padding, rect.size.height);
-    
+    UIColor *clr = self.calendar.textColor ? self.calendar.textColor : [UIColor blackColor];
     NSString *string = self.calendar.date.stringWithShortDayName;
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:[UIFont systemFontSize]], NSForegroundColorAttributeName: [UIColor lightGrayColor]};
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:[UIFont systemFontSize]], NSForegroundColorAttributeName: clr};
     CGSize size = [string sizeWithAttributes:attributes];
     
     CGRect r = CGRectMake(label.origin.x,

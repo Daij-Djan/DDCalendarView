@@ -20,6 +20,10 @@
 
 @property(nonatomic, assign) BOOL borderOnRight;
 
+@property(nonatomic, strong) IBInspectable UIColor * _Nullable gridColor;
+@property(nonatomic, strong) IBInspectable UIColor * _Nullable textColor;
+@property(nonatomic, strong) IBInspectable UIColor * _Nullable markerColor;
+
 @property(nonatomic, strong) NSArray * _Nullable events;
 @property(nonatomic, weak) DDCalendarView * _Nullable calendar;
 

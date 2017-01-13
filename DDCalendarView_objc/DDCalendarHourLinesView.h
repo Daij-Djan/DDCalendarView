@@ -9,6 +9,8 @@
 
 @interface DDCalendarHourLinesView : UIView
 
+@property(nonatomic, strong) IBInspectable UIColor * _Nonnull gridColor;
+@property(nonatomic, strong) IBInspectable UIColor * _Nonnull textColor;
 @property (nonatomic, assign) BOOL showTimeLabels;
 @property (readonly) CGFloat totalHeight;
 

@@ -59,6 +59,16 @@
     [self setNeedsDisplay];
 }
 
+- (void)setGridColor:(UIColor *)gridColor {
+    _gridColor = gridColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setTextColor:(UIColor *)textColor {
+    _textColor = textColor;
+    [self setNeedsDisplay];
+}
+
 - (BOOL)isOpaque {
     return NO;
 }
@@ -67,7 +77,6 @@
     rect = self.bounds;
 
     CGFloat y = 0;
-    [[UIColor lightGrayColor] set];
 
     //draw lines
     NSUInteger i = 60; //one hour
@@ -79,6 +88,7 @@
         CGFloat padding = usePadding ? TIME_LABEL_WIDTH : 0;
             
         //draw a line in the center of the box
+        [_gridColor set];
         CGRect line = CGRectMake(padding, y+HEIGHT_CELL_MIN/2, rect.size.width-padding, 1);
         UIRectFill(line);
             
@@ -86,8 +96,9 @@
         if(showTime) {
             CGRect label = CGRectMake(0, y, padding, HEIGHT_CELL_MIN);
             
+            [_textColor set];
             NSString *string = date.stringWithTimeOnly;
-            NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:[UIFont systemFontSize]], NSForegroundColorAttributeName: [UIColor lightGrayColor]};
+            NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:[UIFont systemFontSize]], NSForegroundColorAttributeName: _textColor};
             CGSize size = [string sizeWithAttributes:attributes];
             
             CGRect r = CGRectMake(label.origin.x,

@@ -23,6 +23,10 @@ IB_DESIGNABLE
 @property(nonatomic, assign) IBInspectable BOOL showsSeparatorsBetweenDays; //shows separators between each two day views
 @property(nonatomic, assign) IBInspectable NSUInteger numberOfDays; //the number of days per page (e.g. 1 = dayview, 7 = weekview or .... 9 ;))
 
+@property(nonatomic, strong) IBInspectable UIColor * gridColor;
+@property(nonatomic, strong) IBInspectable UIColor * textColor;
+@property(nonatomic, strong) IBInspectable UIColor * markerColor;
+
 @property(nonatomic, weak) IBOutlet __nullable id<DDCalendarViewDelegate> delegate;
 @property(nonatomic, weak) IBOutlet __nullable id<DDCalendarViewDataSource> dataSource; //note, causes a reloadData
 

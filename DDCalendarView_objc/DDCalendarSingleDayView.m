@@ -47,6 +47,9 @@
         UIView *container = [[UIView alloc] initWithFrame:f];
         [container setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         [self.bg addSubview:container];
+        self.bg.gridColor = self.gridColor;
+        self.bg.textColor = self.textColor;
+        
         self.container = container;
         
         _showsTimeLabels = YES;
@@ -169,7 +172,7 @@
         if(!label) {
             label = [[UILabel alloc] initWithFrame:r];
             label.tag = RIGHT_BORDER_LABEL_TAG;
-            label.backgroundColor = [UIColor lightGrayColor];
+            label.backgroundColor = self.gridColor ? self.gridColor : [UIColor blackColor];
             
             [self addSubview:label];
         }
@@ -180,6 +183,32 @@
     else {
         [label removeFromSuperview];
     }
+    
+    DDCalendarHeaderView *dayLabel = (DDCalendarHeaderView*)[self viewWithTag:HEADER_LABEL_TAG];
+    [dayLabel setNeedsDisplay];
+}
+
+- (void)setGridColor:(UIColor *)gridColor {
+    _gridColor = gridColor;
+    self.bg.gridColor = _gridColor ? _gridColor : [UIColor blackColor];
+
+    UILabel *label = (UILabel*)[self viewWithTag:RIGHT_BORDER_LABEL_TAG];
+    label.backgroundColor = _gridColor ? _gridColor : [UIColor blackColor];
+}
+
+- (void)setTextColor:(UIColor *)textColor {
+    _textColor = textColor;
+    
+    self.bg.textColor = _textColor ? _textColor : [UIColor blackColor];
+    DDCalendarHeaderView *label = (DDCalendarHeaderView*)[self viewWithTag:HEADER_LABEL_TAG];
+    [label setNeedsDisplay];
+}
+
+- (void)setMarkerColor:(UIColor *)markerColor {
+    _markerColor = markerColor;
+    
+    self.timeMarkerLine.backgroundColor = _markerColor ? _markerColor : [UIColor blackColor];
+    [self.timeMarkerLine setNeedsDisplay];
 }
 
 - (void)setShowsTomorrow:(BOOL)showsTomorrow {
@@ -213,7 +242,8 @@
     if(_showsTimeMarker) {
         if(!self.timeMarkerLine) {
             UIView *timeMarkerLine = [[UIView alloc] initWithFrame:CGRectZero];
-            timeMarkerLine.backgroundColor = [UIColor redColor];
+            timeMarkerLine.backgroundColor = self.markerColor ? self.markerColor : [UIColor blackColor];
+            
             [self insertSubview:timeMarkerLine aboveSubview:self.container];
             self.timeMarkerLine = timeMarkerLine;
         }

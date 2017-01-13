@@ -52,6 +52,10 @@
     self.numberOfDays = 1;
     self.showsSeparatorsBetweenDays = YES;
     
+    self.gridColor = [UIColor lightGrayColor];
+    self.textColor = [UIColor lightGrayColor];
+    self.markerColor = [UIColor redColor];
+    
     self.date = [NSDate date];
 
     UIScrollView *pagingView = [[UIScrollView alloc] initWithFrame:self.bounds];
@@ -92,6 +96,36 @@
     }
 }
 
+- (void)setDelegate:(id<DDCalendarViewDelegate>)delegate {
+    if(delegate != _delegate) {
+        _delegate = delegate;
+        
+        id<DDCalendarViewDelegate> delegate = _delegate;
+        if([delegate respondsToSelector:@selector(calendarView:focussedOnDay:)]) {
+            [delegate calendarView:self focussedOnDay:_date];
+        }
+    }
+}
+
+- (void)setDataSource:(id<DDCalendarViewDataSource>)dataSource {
+    _dataSource = dataSource;
+    self.date = self.date;
+}
+
+- (void)reloadData {
+    self.date = self.date;
+}
+
+- (void)scrollDateToVisible:(NSDate *)date animated:(BOOL)animated {
+    if(![date isEqualDay:self.date]) {
+        self.date = date;
+    }
+    [self.leftScrollView scrollTimeToVisible:date animated:animated];
+    [self.centerScrollView scrollTimeToVisible:date animated:animated];
+    [self.rightScrollView scrollTimeToVisible:date animated:animated];
+}
+
+
 - (void)resizeContainersAndCenterPagingView {
     //make us as big as needed
     CGSize s = self.frame.size;
@@ -121,85 +155,26 @@
     }
 }
 
-- (void)setShowsTomorrow:(BOOL)showsTomorrow {
-    _showsTomorrow = showsTomorrow;
+- (void)reloadCalendar:(DDCalendarSingleDayView*)dv dayModifier:(NSInteger)dayModifier {
+    dv.date = [self.date dateByAddingDays:dayModifier];
+    dv.showsDayHeader = self.showsDayName;
+    dv.showsTomorrow = self.showsTomorrow;
+    dv.showsTimeMarker = self.showsTimeMarker;
+    dv.gridColor = self.gridColor;
+    dv.textColor = self.textColor;
+    dv.markerColor = self.markerColor;
     
-    if(!self.date)
-        return;
-
-    //tell our single days
-    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
-        dv.showsTomorrow = showsTomorrow;
-    }
-    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
-        dv.showsTomorrow = showsTomorrow;
-    }
-    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
-        dv.showsTomorrow = showsTomorrow;
-    }
-
-    [self resizeContainersAndCenterPagingView];
-}
-
-- (void)setShowsSeparatorsBetweenDays:(BOOL)showsSeparatorsBetweenDays {
-    _showsSeparatorsBetweenDays = showsSeparatorsBetweenDays;
+    dv.calendar = self;
     
-    if(!self.date)
-        return;
-    
-    //tell our single days
-    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
-        if(self.leftScrollView.calendars.lastObject != dv) {
-            dv.borderOnRight = YES;
-        }
+    if(_mockMode) {
+        dv.events = [self eventsForDay:dayModifier];
     }
-    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
-        if(self.centerScrollView.calendars.lastObject != dv) {
-            dv.borderOnRight = YES;
-        }
-    }
-    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
-        if(self.rightScrollView.calendars.lastObject != dv) {
-            dv.borderOnRight = YES;
-        }
+    else {
+        dv.events = [_dataSource calendarView:self eventsForDay:dv.date];
     }
 }
 
-- (void)setShowsTimeMarker:(BOOL)showsTimeMarker {
-    _showsTimeMarker = showsTimeMarker;
-    
-    if(!self.date)
-        return;
-
-    //tell our single days
-    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
-        dv.showsTimeMarker = showsTimeMarker;
-    }
-    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
-        dv.showsTimeMarker = showsTimeMarker;
-    }
-    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
-        dv.showsTimeMarker = showsTimeMarker;
-    }
-}
-
-- (void)setShowsDayName:(BOOL)showsDayname {
-    _showsDayName = showsDayname;
-    
-    if(!self.date)
-        return;
-    
-    //tell our single days
-    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
-        dv.showsDayHeader = showsDayname;
-    }
-    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
-        dv.showsDayHeader = showsDayname;
-    }
-    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
-        dv.showsDayHeader = showsDayname;
-    }
-}
+//MARK: date related properties
 
 - (void)setNumberOfDays:(NSUInteger)numberOfDays {
     _numberOfDays = numberOfDays;
@@ -261,36 +236,146 @@
     return [self.date stringWithDateOnly];
 }
 
-- (void)setDelegate:(id<DDCalendarViewDelegate>)delegate {
-    if(delegate != _delegate) {
-        _delegate = delegate;
-        
-        id<DDCalendarViewDelegate> delegate = _delegate;
-        if([delegate respondsToSelector:@selector(calendarView:focussedOnDay:)]) {
-            [delegate calendarView:self focussedOnDay:_date];
+//MARK: UI Settings (mostly forwarded)
+
+- (void)setShowsTomorrow:(BOOL)showsTomorrow {
+    _showsTomorrow = showsTomorrow;
+    
+    if(!self.date)
+        return;
+
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsTomorrow = showsTomorrow;
+    }
+
+    [self resizeContainersAndCenterPagingView];
+}
+
+- (void)setShowsSeparatorsBetweenDays:(BOOL)showsSeparatorsBetweenDays {
+    _showsSeparatorsBetweenDays = showsSeparatorsBetweenDays;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        if(self.leftScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = _showsSeparatorsBetweenDays;
+        }
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        if(self.centerScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = _showsSeparatorsBetweenDays;
+        }
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        if(self.rightScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = _showsSeparatorsBetweenDays;
         }
     }
 }
 
-- (void)setDataSource:(id<DDCalendarViewDataSource>)dataSource {
-    _dataSource = dataSource;
-    self.date = self.date;
-}
+- (void)setShowsTimeMarker:(BOOL)showsTimeMarker {
+    _showsTimeMarker = showsTimeMarker;
+    
+    if(!self.date)
+        return;
 
-- (void)reloadData {
-    self.date = self.date;
-}
-
-- (void)scrollDateToVisible:(NSDate *)date animated:(BOOL)animated {
-    if(![date isEqualDay:self.date]) {
-        self.date = date;
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
     }
-    [self.leftScrollView scrollTimeToVisible:date animated:animated];
-    [self.centerScrollView scrollTimeToVisible:date animated:animated];
-    [self.rightScrollView scrollTimeToVisible:date animated:animated];
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsTimeMarker = showsTimeMarker;
+    }
 }
+
+- (void)setShowsDayName:(BOOL)showsDayname {
+    _showsDayName = showsDayname;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.showsDayHeader = showsDayname;
+    }
+}
+
+- (void)setGridColor:(UIColor *)gridColor {
+    _gridColor = gridColor;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.gridColor = gridColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.gridColor = gridColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.gridColor = gridColor;
+    }
+}
+
+- (void)setTextColor:(UIColor *)textColor {
+    _textColor = textColor;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.textColor = textColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.textColor = textColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.textColor = textColor;
+    }
+}
+
+- (void)setMarkerColor:(UIColor *)markerColor {
+    _markerColor = markerColor;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        dv.markerColor = markerColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        dv.markerColor = markerColor;
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        dv.markerColor = markerColor;
+    }
+}
+
+//MARK: Delegates
 
 //paging view
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)sender {
     if(sender == self.pagingView) {
         // Switch when more than 50% of the previous/next page is visible
@@ -313,6 +398,7 @@
 }
 
 //calenders
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //sync the views
     if(scrollView == self.leftScrollView ||
@@ -324,22 +410,7 @@
     }
 }
 
-- (void)reloadCalendar:(DDCalendarSingleDayView*)dv dayModifier:(NSInteger)dayModifier {
-    dv.date = [self.date dateByAddingDays:dayModifier];
-    dv.showsDayHeader = self.showsDayName;
-    dv.showsTomorrow = self.showsTomorrow;
-    dv.showsTimeMarker = self.showsTimeMarker;
-    dv.calendar = self;
-    
-    if(_mockMode) {
-        dv.events = [self eventsForDay:dayModifier];
-    }
-    else {
-        dv.events = [_dataSource calendarView:self eventsForDay:dv.date];
-    }
-}
-
-#pragma mark IB
+#pragma mark IBDesignable support
 
 - (void)prepareForInterfaceBuilder {
     _mockMode = YES;
