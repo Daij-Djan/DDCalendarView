@@ -11,7 +11,6 @@ import EventKit
 import EventKitUI
 
 class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDataSource, EKEventViewDelegate {
-
     @IBOutlet var dayLabel: UILabel!;
     @IBOutlet var calendarView: DDCalendarView!;
 
@@ -19,15 +18,15 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
     var mgr = EventManager()
     
     override func viewDidLoad() {
-        self.calendarView.scrollDateToVisible(NSDate(), animated: false)
+        self.calendarView.scrollDateToVisible(Date(), animated: false)
     }
     
     // MARK: delegate
     
-    func calendarView(view: DDCalendarView, focussedOnDay date: NSDate) {
-        dayLabel.text = date.stringWithDateOnly()
+    func calendarView(_ view: DDCalendarView, focussedOnDay date: Date) {
+        dayLabel.text = (date as NSDate).stringWithDateOnly()
         
-        let days = date.daysFromDate(NSDate())
+        let days = (date as NSDate).days(from: Date())
         self.loadCachedEvents(days) { (events) -> Void in
             self.loadCachedEvents(days-1) { (events) -> Void in
                 self.loadCachedEvents(days+1) { (events) -> Void in
@@ -38,7 +37,7 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
         
     }
     
-    func calendarView(view: DDCalendarView, didSelectEvent event: DDCalendarEvent) {
+    func calendarView(_ view: DDCalendarView, didSelect event: DDCalendarEvent) {
         let ekEvent = event.userInfo["event"] as! EKEvent
         
         let vc = EKEventViewController()
@@ -46,10 +45,10 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
         vc.event = ekEvent
         let nav = UINavigationController(rootViewController: vc)
 
-        self.presentViewController(nav, animated: true, completion: nil)
+        self.present(nav, animated: true, completion: nil)
     }
 
-    func calendarView(view: DDCalendarView, allowEditingEvent event: DDCalendarEvent) -> Bool {
+    func calendarView(_ view: DDCalendarView, allowEditing event: DDCalendarEvent) -> Bool {
         //NOTE some check could be here, we just say true :D
         let ekEvent = event.userInfo["event"] as! EKEvent
         let ekCal = ekEvent.calendarItemIdentifier
@@ -58,31 +57,31 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
         return true
     }
 
-    func calendarView(view: DDCalendarView, commitEditEvent event: DDCalendarEvent) {
+    func calendarView(_ view: DDCalendarView, commitEdit event: DDCalendarEvent) {
         //NOTE we dont actually save anything because this demo doesnt wanna mess with your calendar :)
     }
     
     // MARK: dataSource
     
-    func calendarView(view: DDCalendarView, eventsForDay date: NSDate) -> [AnyObject]? {
-        let daysModifier = date.daysFromDate(NSDate())
+    public func calendarView(_ view: DDCalendarView, eventsForDay date: Date) -> [Any]? {
+        let daysModifier = (date as NSDate).days(from: Date())
         return dict[daysModifier]
     }
     
-    func calendarView(view: DDCalendarView, viewForEvent event: DDCalendarEvent) -> DDCalendarEventView? {
+    public func calendarView(_ view: DDCalendarView, viewFor event: DDCalendarEvent) -> DDCalendarEventView? {
         return EventView(event: event)
     }
     
     // MARK: helper
     
-    func loadCachedEvents(day:Int, handler:([DDCalendarEvent])->Void) {
+    func loadCachedEvents(_ day:Int, handler:@escaping ([DDCalendarEvent])->Void) {
         let events = dict[day]
         if(events == nil) {
             mgr.getEvents(day, calendars: nil, handler: { (newEvents) -> Void in
                 //make DDEvents
                 var ddEvents = [DDCalendarEvent]()
                 for ekEvent in newEvents {
-                    if ekEvent.allDay == false {
+                    if ekEvent.isAllDay == false {
                         let ddEvent = DDCalendarEvent()
                         ddEvent.title = ekEvent.title
                         ddEvent.dateBegin = ekEvent.startDate
@@ -102,8 +101,8 @@ class ViewController: UIViewController, DDCalendarViewDelegate, DDCalendarViewDa
 
     // MARK: delegate
     
-    func eventViewController(controller: EKEventViewController, didCompleteWithAction action: EKEventViewAction) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

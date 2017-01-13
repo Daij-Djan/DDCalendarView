@@ -14,49 +14,49 @@ public typealias EventManagerCalenderCreatedCompletionHandler = (EKCalendar) -> 
 public typealias EventManagerLoadEventsCompletionHandler = ([EKEvent]) -> Void
 public typealias EventManagerEventCreatedCompletionHandler = (EKEvent) -> Void
 
-public class EventManager: NSObject {
+open class EventManager: NSObject {
     let eventStore = EKEventStore()
     
     //reading
     
-    public func getEventCalendars(handler:EventManagerLoadCalendersCompletionHandler) {
+    open func getEventCalendars(_ handler:@escaping EventManagerLoadCalendersCompletionHandler) {
         assertAuthorization() {
-            dispatch_async(dispatch_get_global_queue(0, 0)) {
-                let allCalendars = self.eventStore.calendarsForEntityType(.Event)
+            DispatchQueue.global().async {
+                let allCalendars = self.eventStore.calendars(for: .event)
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     handler(allCalendars)
                 }
             }
         }
     }
 
-    public func getEvents(daysModifier:Int,calendars:[EKCalendar]?, handler:EventManagerLoadEventsCompletionHandler) {
+    open func getEvents(_ daysModifier:Int,calendars:[EKCalendar]?, handler:@escaping EventManagerLoadEventsCompletionHandler) {
         assertAuthorization() {
-            dispatch_async(dispatch_get_global_queue(0, 0)) {
-                let calendar = NSCalendar.currentCalendar()
-                let units = NSCalendarUnit.Day.union(NSCalendarUnit.Month).union(NSCalendarUnit.Year).union(NSCalendarUnit.Weekday).union(NSCalendarUnit.WeekOfMonth).union(NSCalendarUnit.Hour).union(NSCalendarUnit.Minute)
-                let nowComps = calendar.components(units, fromDate: NSDate())
+            DispatchQueue.global().async {
+                let calendar = Calendar.current
+                let units = NSCalendar.Unit.day.union(NSCalendar.Unit.month).union(NSCalendar.Unit.year).union(NSCalendar.Unit.weekday).union(NSCalendar.Unit.weekOfMonth).union(NSCalendar.Unit.hour).union(NSCalendar.Unit.minute)
+                var nowComps = (calendar as NSCalendar).components(units, from: Date())
                 
-                nowComps.day += daysModifier;
+                nowComps.day = daysModifier + (nowComps.day ?? 0);
                 nowComps.hour = 0;
                 nowComps.minute = 0;
-                let from = calendar.dateFromComponents(nowComps)
+                let from = calendar.date(from: nowComps)
 
                 nowComps.hour = 23;
                 nowComps.minute = 59;
-                let to = calendar.dateFromComponents(nowComps)
+                let to = calendar.date(from: nowComps)
                 
                 assert(from != nil);
                 assert(to != nil);
                 
                 // Create the predicate from the event store's instance method
-                let predicate = self.eventStore.predicateForEventsWithStartDate(from!, endDate: to!, calendars: calendars)
+                let predicate = self.eventStore.predicateForEvents(withStart: from!, end: to!, calendars: calendars)
                 
                 // Fetch all events that match the predicate
-                let events = self.eventStore.eventsMatchingPredicate(predicate)
+                let events = self.eventStore.events(matching: predicate)
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     handler(events)
                 }
             }
@@ -65,16 +65,16 @@ public class EventManager: NSObject {
     
     // MARK: writing
     
-    public func createUnsavedEventCalendar(name:String, handler:EventManagerCalenderCreatedCompletionHandler) {
+    open func createUnsavedEventCalendar(_ name:String, handler:@escaping EventManagerCalenderCreatedCompletionHandler) {
         assertAuthorization() {
             // create new calendar.
-            let calendar = EKCalendar(forEntityType: .Event, eventStore: self.eventStore)
+            let calendar = EKCalendar(for: .event, eventStore: self.eventStore)
             calendar.title = name
             handler(calendar)
         }
     }
     
-    public func createUnsavedEvent(title:String, calendar:EKCalendar, handler:EventManagerEventCreatedCompletionHandler) {
+    open func createUnsavedEvent(_ title:String, calendar:EKCalendar, handler:@escaping EventManagerEventCreatedCompletionHandler) {
         assertAuthorization() {
             // create new event
             let event = EKEvent(eventStore: self.eventStore)
@@ -86,9 +86,9 @@ public class EventManager: NSObject {
     
     // MARK: auth helper
     
-    private func assertAuthorization(handler:(()->Void)) {
-        if EKEventStore.authorizationStatusForEntityType(.Event) != .Authorized {
-            eventStore.requestAccessToEntityType(.Event, completion: { (newAuth, error) -> Void in
+    fileprivate func assertAuthorization(_ handler:@escaping (()->Void)) {
+        if EKEventStore.authorizationStatus(for: .event) != .authorized {
+            eventStore.requestAccess(to: .event, completion: { (newAuth, error) -> Void in
                 //get it
                 handler()
             })
