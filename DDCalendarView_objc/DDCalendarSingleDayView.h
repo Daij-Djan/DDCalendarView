@@ -18,6 +18,8 @@
 @property(nonatomic, assign) BOOL showsTimeLabels;
 @property(nonatomic, assign) BOOL showsDayHeader;
 
+@property(nonatomic, assign) BOOL borderOnRight;
+
 @property(nonatomic, strong) NSArray * _Nullable events;
 @property(nonatomic, weak) DDCalendarView * _Nullable calendar;
 

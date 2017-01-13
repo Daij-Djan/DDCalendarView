@@ -33,6 +33,7 @@
 - (void)drawRect:(CGRect)rect {
     rect = self.bounds;
     
+    //time label
     BOOL usePadding = self.calendar.showsTimeLabels;
     CGFloat padding = usePadding ? TIME_LABEL_WIDTH : 0;
         

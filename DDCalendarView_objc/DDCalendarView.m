@@ -50,6 +50,7 @@
     self.showsTimeMarker = YES;
     self.showsTomorrow = NO;
     self.numberOfDays = 1;
+    self.showsSeparatorsBetweenDays = YES;
     
     self.date = [NSDate date];
 
@@ -140,6 +141,30 @@
     [self resizeContainersAndCenterPagingView];
 }
 
+- (void)setShowsSeparatorsBetweenDays:(BOOL)showsSeparatorsBetweenDays {
+    _showsSeparatorsBetweenDays = showsSeparatorsBetweenDays;
+    
+    if(!self.date)
+        return;
+    
+    //tell our single days
+    for (DDCalendarSingleDayView *dv in self.leftScrollView.calendars) {
+        if(self.leftScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = YES;
+        }
+    }
+    for (DDCalendarSingleDayView *dv in self.centerScrollView.calendars) {
+        if(self.centerScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = YES;
+        }
+    }
+    for (DDCalendarSingleDayView *dv in self.rightScrollView.calendars) {
+        if(self.rightScrollView.calendars.lastObject != dv) {
+            dv.borderOnRight = YES;
+        }
+    }
+}
+
 - (void)setShowsTimeMarker:(BOOL)showsTimeMarker {
     _showsTimeMarker = showsTimeMarker;
     
@@ -214,6 +239,9 @@
         
         //fix our contentOffset & size
         self.showsTomorrow = self.showsTomorrow;
+        
+        //fix lines
+        self.showsSeparatorsBetweenDays = self.showsSeparatorsBetweenDays;
     }
     
     //tell delegate

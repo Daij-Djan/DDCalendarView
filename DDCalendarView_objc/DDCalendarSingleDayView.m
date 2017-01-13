@@ -158,6 +158,30 @@
     self.bg.frame = f;
 }
 
+- (void)setBorderOnRight:(BOOL)borderOnRight {
+    _borderOnRight = borderOnRight;
+    
+    UILabel *label = (UILabel*)[self viewWithTag:RIGHT_BORDER_LABEL_TAG];
+    if(_borderOnRight) {
+        CGRect r = self.bounds;
+        r.origin.x += r.size.width - 1;
+        r.size.width = 1;
+        if(!label) {
+            label = [[UILabel alloc] initWithFrame:r];
+            label.tag = RIGHT_BORDER_LABEL_TAG;
+            label.backgroundColor = [UIColor lightGrayColor];
+            
+            [self addSubview:label];
+        }
+        else {
+            label.frame = r;
+        }
+    }
+    else {
+        [label removeFromSuperview];
+    }
+}
+
 - (void)setShowsTomorrow:(BOOL)showsTomorrow {
     _showsTomorrow = showsTomorrow;
     
